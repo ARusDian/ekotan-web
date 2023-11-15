@@ -34,7 +34,7 @@ class DocumentFileController extends Controller
         $data = $request->validate([
             'type' => [
                 'required',
-                Rule::in(['learning-material', 'bank-question', 'question']),
+                Rule::in(['user_profile', 'prize', 'quest', 'submission', 'article']),
             ],
             'file' => 'required|image',
         ]);
@@ -42,15 +42,22 @@ class DocumentFileController extends Controller
 
         $path = '';
 
-        switch ($data['type']) {
-            case 'learning-material':
-                $path = 'learning-material';
+        switch ($data['type'])
+        {
+            case 'user_profile':
+                $path = 'user_profile';
                 break;
-            case 'bank-question':
-                $path = 'bank-question';
+            case 'prize':
+                $path = 'prize';
                 break;
-            case 'question':
-                $path = 'question';
+            case 'quest':
+                $path = 'quest';
+                break;
+            case 'submission':
+                $path = 'submission';
+                break;
+            case 'article':
+                $path = 'article';
                 break;
         }
 

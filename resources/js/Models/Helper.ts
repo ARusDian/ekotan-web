@@ -39,3 +39,10 @@ export function getUniqueKey(item: Keyable) {
     return item.__unique_key;
   }
 }
+
+export interface Paginated<T> {
+  data: T[];
+  per_page: number;
+  total: number;
+  current_page: number;
+}

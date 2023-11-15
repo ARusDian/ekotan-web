@@ -17,21 +17,18 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import Dropdown from '@/Components/Jetstream/Dropdown';
 import DropdownLink from '@/Components/Jetstream/DropdownLink';
 import route from 'ziggy-js';
-import FolderCopyIcon from '@mui/icons-material/FolderCopy';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import DashboardIcon from '@mui/icons-material/Dashboard';
-import FolderSharedIcon from '@mui/icons-material/FolderShared';
 import ManageHistoryIcon from '@mui/icons-material/ManageHistory';
-import MenuBookIcon from '@mui/icons-material/MenuBook';
-import InventoryIcon from '@mui/icons-material/Inventory';
 import StorageIcon from '@mui/icons-material/Storage';
 import TableRowsIcon from '@mui/icons-material/TableRows';
 import BackupIcon from '@mui/icons-material/Backup';
 import { asset } from '@/Models/Helper';
 import { User } from '@/types';
 import { VersionContext } from '@/Context/VersionContext';
-
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck';
 interface Props {
   title: string;
   renderHeader?(): JSX.Element;
@@ -176,8 +173,33 @@ export default function DashboardAdminLayout({
             Dashboard
           </ResponsiveNavLink>
         </li>
+        <li>
+          <ResponsiveNavLink
+            href={route('quest.index')}
+            active={route().current('quest.index')}
+          >
+            <span className={'mr-4'}>
+              <PlaylistAddCheckIcon fontSize="large" />
+            </span>
+            Quest
+          </ResponsiveNavLink>
+        </li>
+        <li>
+          <ResponsiveNavLink
+            href={route('quest-category.index')}
+            active={route().current('quest-category.index')}
+          >
+            <span className={'mr-4'}>
+              <FormatListBulletedIcon fontSize="large" />
+            </span>
+            Kategori Quest
+          </ResponsiveNavLink>
+        </li>
         {user.roles.some(role => role.name === 'super-admin') && (
           <>
+            <Divider >
+              User Management
+            </Divider>
             <li>
               <ResponsiveNavLink
                 href={route('user.index')}
