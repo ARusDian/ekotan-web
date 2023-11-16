@@ -1,4 +1,4 @@
-import { Paginated } from '@/Models/Helper';
+import { Paginated, asset } from '@/Models/Helper';
 import { MRT_ColumnDef, MRT_ColumnFiltersState, MRT_PaginationState, MaterialReactTable, useMaterialReactTable } from 'material-react-table';
 import { useEffect, useMemo, useState } from 'react';
 import { router } from '@inertiajs/react';
@@ -57,8 +57,21 @@ export default function Index(props: Props) {
     const dataColumns = useMemo<MRT_ColumnDef<QuestModel>[]>(
         () => [
             {
-                header: 'Nama Quest',
-                accessorKey: 'title',
+                id: 'title',
+                header: 'nama Quest',
+                accessorFn: row => row.title,
+                Cell: ({ renderedCellValue, row }) => (
+                    <div className="flex gap-3">
+                        <img
+                            className="h-20 w-20 object-scale-down"
+                            src={
+                                asset('public', row.original.photo.path)
+                            }
+                            alt={`${row.original.title} photo}`}
+                        />
+                        <p className="my-auto font-semibold">{renderedCellValue}</p>
+                    </div>
+                ),
             },
             {
                 header: 'Kategori',

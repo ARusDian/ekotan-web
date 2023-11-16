@@ -16,12 +16,19 @@ class QuestController extends Controller
     public function index(Request $request)
     {
         //
-        $quests = Quest::with('category')
+        $quests = Quest::with(['category', 'photo'])
             ->whereColumns($request->get('columnFilters'))
             ->paginate($request->get('perPage') ?? 10);
         return inertia('Admin/Quest/Index', [
             'quests' => $quests,
         ]);
+    }
+
+    public function indexApi(Request $request)
+    {
+        //
+        $quests = Quest::with(['category', 'photo'])->get();
+        return response()->json($quests);
     }
 
     /**
@@ -102,6 +109,13 @@ class QuestController extends Controller
         ]);
     }
 
+    public function showApi(Quest $quest)
+    {
+        //
+        $quest = Quest::with('category', 'photo')->findOrFail($quest->id);
+        return response()->json($quest);
+    }
+
     /**
      * Show the form for editing the specified resource.
      */
@@ -142,7 +156,7 @@ class QuestController extends Controller
 
             if ($photo)
             {
-                $photo_file = DocumentFile::replaceFile(
+                $photo_file = $quest->photo->replaceFile(
                     $photo,
                 );
             }

@@ -20,11 +20,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request)
     return $request->user();
 });
 
+Route::get('quest', [QuestController::class, 'indexApi'])->name('api.quest.index');
+Route::get('quest/{quest}', [QuestController::class, 'showApi'])->name('api.quest.show');
+Route::get('quest-category', [QuestCategoryController::class, 'index'])->name('api.quest-category.index');
+Route::get('quest-category/{questCategory}', [QuestCategoryController::class, 'show'])->name('api.quest-category.show');
+
 Route::middleware('auth:sanctum')->group(function ()
 {
-    Route::get('quest', [QuestController::class, 'index'])->name('api.quest.index');
-    Route::get('quest/{quest}', [QuestController::class, 'show'])->name('api.quest.show');
-    Route::get('quest-category', [QuestCategoryController::class, 'index'])->name('api.quest-category.index');
-    Route::get('quest-category/{questCategory}', [QuestCategoryController::class, 'show'])->name('api.quest-category.show');
 });
 
