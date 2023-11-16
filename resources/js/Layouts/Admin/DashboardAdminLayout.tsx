@@ -30,6 +30,8 @@ import { VersionContext } from '@/Context/VersionContext';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck';
 import RedeemIcon from '@mui/icons-material/Redeem';
+import NewspaperIcon from '@mui/icons-material/Newspaper';
+
 interface Props {
   title: string;
   renderHeader?(): JSX.Element;
@@ -205,6 +207,17 @@ export default function DashboardAdminLayout({
               <RedeemIcon fontSize="large" />
             </span>
             Hadiah
+          </ResponsiveNavLink>
+        </li>
+        <li>
+          <ResponsiveNavLink
+            href={route('article.index')}
+            active={route().current('article.index')}
+          >
+            <span className={'mr-4'}>
+              <NewspaperIcon fontSize="large" />
+            </span>
+            Artikel
           </ResponsiveNavLink>
         </li>
         {user.roles.some(role => role.name === 'super-admin') && (

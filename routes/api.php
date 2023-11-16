@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\PrizeController;
 use App\Http\Controllers\QuestController;
 use App\Http\Controllers\QuestCategoryController;
@@ -21,6 +22,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request)
     return $request->user();
 });
 
+Route::get('article', [ArticleController::class, 'indexApi'])->name('api.article.index');
+Route::get('article/{article}', [ArticleController::class, 'showApi'])->name('api.article.show');
 Route::get('prize', [PrizeController::class, 'indexApi'])->name('api.prize.index');
 Route::get('prize/{prize}', [PrizeController::class, 'showApi'])->name('api.prize.show');
 Route::get('quest', [QuestController::class, 'indexApi'])->name('api.quest.index');
