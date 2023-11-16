@@ -90,7 +90,7 @@ export default function Index(props: Props) {
             {
                 header: 'Berakhir Pada',
                 accessorFn(originalRow) {
-                    return new Date(originalRow.expired_at).toLocaleString('id') ?? '-';
+                    return originalRow.expired_at != null && originalRow.expired_at != '1/1/1970, 07.30.00' ? new Date(originalRow.expired_at).toLocaleString('id') : '-';
                 },
             }
         ]
