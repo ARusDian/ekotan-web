@@ -16,7 +16,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('description');
             $table->double('price');
-            $table->foreignId('photo_id')->constrained('document_files');
+            $table->integer('stock');
+            $table->foreignId('image_id')->constrained('document_files');
             $table->timestamps();
         });
     }

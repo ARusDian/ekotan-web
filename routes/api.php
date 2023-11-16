@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\PrizeController;
 use App\Http\Controllers\QuestController;
 use App\Http\Controllers\QuestCategoryController;
 use Illuminate\Http\Request;
@@ -20,6 +21,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request)
     return $request->user();
 });
 
+Route::get('prize', [PrizeController::class, 'indexApi'])->name('api.prize.index');
+Route::get('prize/{prize}', [PrizeController::class, 'showApi'])->name('api.prize.show');
 Route::get('quest', [QuestController::class, 'indexApi'])->name('api.quest.index');
 Route::get('quest/{quest}', [QuestController::class, 'showApi'])->name('api.quest.show');
 Route::get('quest-category', [QuestCategoryController::class, 'index'])->name('api.quest-category.index');

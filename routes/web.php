@@ -5,6 +5,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DevController;
 use App\Http\Controllers\DocumentFileController;
+use App\Http\Controllers\PrizeController;
 use App\Http\Controllers\QuestCategoryController;
 use App\Http\Controllers\QuestController;
 use App\Http\Controllers\UserActivityController;
@@ -57,6 +58,9 @@ Route::middleware([
             });
             Route::resource("quest-category", QuestCategoryController::class);
             Route::resource("quest", QuestController::class);
+
+            Route::resource("article", ArticleController::class);
+            Route::resource("prize", PrizeController::class);
 
             Route::resource("document-file", DocumentFileController::class);
 

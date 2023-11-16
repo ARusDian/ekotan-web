@@ -29,6 +29,7 @@ import { User } from '@/types';
 import { VersionContext } from '@/Context/VersionContext';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck';
+import RedeemIcon from '@mui/icons-material/Redeem';
 interface Props {
   title: string;
   renderHeader?(): JSX.Element;
@@ -193,6 +194,17 @@ export default function DashboardAdminLayout({
               <FormatListBulletedIcon fontSize="large" />
             </span>
             Kategori Quest
+          </ResponsiveNavLink>
+        </li>
+        <li>
+          <ResponsiveNavLink
+            href={route('prize.index')}
+            active={route().current('prize.index')}
+          >
+            <span className={'mr-4'}>
+              <RedeemIcon fontSize="large" />
+            </span>
+            Hadiah
           </ResponsiveNavLink>
         </li>
         {user.roles.some(role => role.name === 'super-admin') && (
