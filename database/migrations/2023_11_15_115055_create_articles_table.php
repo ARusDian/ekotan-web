@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->longText('content');
-            $table->foreignId('photo_id')->constrained('document_files');
+            $table->foreignId('image_id')->constrained('document_files');
             $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });
