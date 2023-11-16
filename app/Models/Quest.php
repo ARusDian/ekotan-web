@@ -37,13 +37,31 @@ class Quest extends Model
         return $this->belongsTo(QuestCategory::class, "category_id");
     }
 
-    public function photo()
+    public function image()
     {
-        return $this->belongsTo(DocumentFile::class);
+        return $this->belongsTo(DocumentFile::class, "image_id");
     }
 
     public function scopeWhereColumns($query, $filter)
     {
+        if(isset($filter)) {
+            foreach(json_decode($filter) as $value) {
+                $key = explode('.', $value->id);
+                if(!in_array($value->id, $this->allowed)) {
+                    continue;
+                }
+                if(count($key) > 1) {
+                    $query->whereHas($key[0], function($query) use ($value, $key) {
+                        return $query->where($key[1], 'like', '%'.$value->value.'%');
+                    });
+                } else {
+                    $query->where($value->id, 'like', '%'.$value->value.'%');
+                }
 
+                if(in_array($key, $this->allowed)) {
+                    $query->where($key, 'like', '%'.$value.'%');
+                }
+            }
+        }
     }
 }

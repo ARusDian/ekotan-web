@@ -65,9 +65,9 @@ export default function Index(props: Props) {
                         <img
                             className="h-20 w-20 object-scale-down"
                             src={
-                                asset('public', row.original.photo.path)
+                                asset('public', row.original.image.path)
                             }
-                            alt={`${row.original.title} photo}`}
+                            alt={`${row.original.title} image}`}
                         />
                         <p className="my-auto font-semibold">{renderedCellValue}</p>
                     </div>

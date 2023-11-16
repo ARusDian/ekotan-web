@@ -36,7 +36,7 @@ export default function Show(props: Props) {
                     <img
                         className="h-40 object-cover"
                         src={
-                            asset('public', quest.photo.path)
+                            asset('public', quest.image.path)
                         }
                         alt={quest.title}
                     />

@@ -54,7 +54,7 @@ export default function Form(props: Props) {
 					return new File([blob], 'newAvatar.png', { type: 'image/png' });
 				});
 			if (file) {
-				form.setValue('photo', {
+				form.setValue('image', {
 					file: file,
 					disk: 'public',
 				});
@@ -97,10 +97,10 @@ export default function Form(props: Props) {
 	return (
 		<div className={`flex-col gap-5 ${props.className}`}>
 			<div className="form-control w-full mt-4">
-				<InputLabel htmlFor="photo">Foto Quest</InputLabel>
+				<InputLabel htmlFor="image">Foto Quest</InputLabel>
 				<Controller
 					control={form.control}
-					name="photo"
+					name="image"
 					render={({ field }) => {
 						return (
 							<div className="flex flex-col gap-3">
@@ -108,15 +108,15 @@ export default function Form(props: Props) {
 									<img
 										className="object-cover h-40 max-w-full w-auto"
 										src={
-											form.getValues('photo')?.file
+											form.getValues('image')?.file
 												? getStorageFileUrl(
-													form.getValues('photo') as BaseDocumentFileModel,
+													form.getValues('image') as BaseDocumentFileModel,
 												)!
-												: form.formState.defaultValues?.photo
+												: form.formState.defaultValues?.image
 													? asset(
 														'public',
 														form.formState.defaultValues
-															?.photo?.path as string,
+															?.image?.path as string,
 													)
 													: asset('root', 'assets/image/default-image.jpg')
 										}
@@ -137,7 +137,7 @@ export default function Form(props: Props) {
 					}}
 				/>
 				<InputError
-					message={form.formState.errors.photo?.message}
+					message={form.formState.errors.image?.message}
 					className="mt-2"
 				/>
 			</div>

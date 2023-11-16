@@ -16,7 +16,7 @@ class QuestController extends Controller
     public function index(Request $request)
     {
         //
-        $quests = Quest::with(['category', 'photo'])
+        $quests = Quest::with(['category', 'image'])
             ->whereColumns($request->get('columnFilters'))
             ->paginate($request->get('perPage') ?? 10);
         return inertia('Admin/Quest/Index', [
@@ -27,7 +27,7 @@ class QuestController extends Controller
     public function indexApi(Request $request)
     {
         //
-        $quests = Quest::with(['category', 'photo'])->get();
+        $quests = Quest::with(['category', 'image'])->get();
         return response()->json($quests);
     }
 
@@ -51,8 +51,8 @@ class QuestController extends Controller
         //
         $request->validate([
             'category_id' => 'required | exists:quest_categories,id',
-            'photo' => 'required',
-            'photo.file' => 'required | image | mimes:jpeg,png,jpg,gif,svg',
+            'image' => 'required',
+            'image.file' => 'required | image | mimes:jpeg,png,jpg,gif,svg',
             'title' => 'required',
             'description' => 'required',
             'quantity' => 'required_if:isQuantity,==,1|required',
@@ -65,7 +65,7 @@ class QuestController extends Controller
 
         return DB::transaction(function () use ($request)
         {
-            $photo = $request->file('photo.file');
+            $image = $request->file('image.file');
 
             if ($request->isCanExpired == 0)
             {
@@ -75,7 +75,7 @@ class QuestController extends Controller
             $photo_file = DocumentFile::createFile(
              'public',
              'quest',
-             $photo,
+             $image,
             );
 
 
@@ -103,7 +103,7 @@ class QuestController extends Controller
     public function show(Quest $quest)
     {
         //
-        $quest = Quest::with('category', 'photo')->findOrFail($quest->id);
+        $quest = Quest::with('category', 'image')->findOrFail($quest->id);
         return inertia('Admin/Quest/Show', [
             'quest' => $quest,
         ]);
@@ -112,7 +112,7 @@ class QuestController extends Controller
     public function showApi(Quest $quest)
     {
         //
-        $quest = Quest::with('category', 'photo')->findOrFail($quest->id);
+        $quest = Quest::with('category', 'image')->findOrFail($quest->id);
         return response()->json($quest);
     }
 
@@ -123,7 +123,7 @@ class QuestController extends Controller
     {
         //
         $quest_categories = QuestCategory::all();
-        $quest = Quest::with('category', 'photo')->findOrFail($quest->id);
+        $quest = Quest::with('category', 'image')->findOrFail($quest->id);
         return inertia('Admin/Quest/Edit', [
             'quest' => $quest,
             'questCategories' => $quest_categories,
@@ -138,8 +138,8 @@ class QuestController extends Controller
         //
         $request->validate([
             'category_id' => 'required | exists:quest_categories,id',
-            'photo' => 'required',
-            'photo.file' => ' image | mimes:jpeg,png,jpg,gif,svg',
+            'image' => 'required',
+            'image.file' => ' image | mimes:jpeg,png,jpg,gif,svg',
             'title' => 'required',
             'description' => 'required',
             'quantity' => 'required_if:isQuantity,==,1|required',
@@ -152,17 +152,17 @@ class QuestController extends Controller
 
         return DB::transaction(function () use ($request, $quest)
         {
-            $photo = $request->file('photo.file');
+            $image = $request->file('image.file');
 
-            if ($photo)
+            if ($image)
             {
-                $photo_file = $quest->photo->replaceFile(
-                    $photo,
+                $photo_file = $quest->image->replaceFile(
+                    $image,
                 );
             }
             else
             {
-                $photo_file = $quest->photo;
+                $photo_file = $quest->image;
             }
 
 
@@ -192,8 +192,8 @@ class QuestController extends Controller
         return DB::transaction(function () use ($quest)
         {
             $quest->delete();
-            $quest->photo->delete();
-            $quest->photo->deleteFile();
+            $quest->image->delete();
+            $quest->image->deleteFile();
             return redirect()->route('quest.index');
         });
     }

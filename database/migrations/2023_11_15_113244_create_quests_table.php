@@ -21,7 +21,7 @@ return new class extends Migration
             $table->double('latitude')->nullable();
             $table->double('longitude')->nullable();
             $table->foreignId('category_id')->nullable()->constrained('quest_categories'); 
-            $table->foreignId('photo_id')->nullable()->constrained('document_files');
+            $table->foreignId('image_id')->nullable()->constrained('document_files');
             $table->dateTime('expired_at')->nullable();
             $table->timestamps();
         });

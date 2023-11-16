@@ -16,12 +16,12 @@ export interface BaseQuestModel {
     updated_at: string;
     category_id: number;
     category: QuestCategoryModel;
-    photo_id: number;
-    photo: BaseDocumentFileModel;
+    image_id: number;
+    image: BaseDocumentFileModel;
 }
 
 export interface QuestModel extends BaseQuestModel {
-    photo : DocumentFileModel;
+    image : DocumentFileModel;
 }
 
 export interface QuestCreateModel extends BaseQuestModel {
