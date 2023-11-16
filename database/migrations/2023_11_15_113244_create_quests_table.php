@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('description')->nullable();
             $table->double('point');
+            $table->decimal('duration');
             $table->integer('quantity')->nullable();
             $table->string('location')->nullable();
             $table->double('latitude')->nullable();

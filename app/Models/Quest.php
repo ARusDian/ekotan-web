@@ -11,11 +11,12 @@ class Quest extends Model
 
     protected $fillable = [
         'category_id',
-        'photo_id',
+        'image_id',
         'title',
         'description',
         'quantity',
         'point',
+        'duration',
         'location',
         'latitude',
         'longitude',
@@ -27,6 +28,7 @@ class Quest extends Model
             'title',
             'quantity',
             'point',
+            'duration',
             'location',
             'latitude',
             'longitude',

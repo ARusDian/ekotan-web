@@ -14,6 +14,7 @@ import { Location } from '@/Models/SharedModel';
 import useTypedPage from "@/Hooks/useTypedPage";
 import { MapContainer, TileLayer } from 'react-leaflet';
 import Select from "react-select";
+import { floor } from "lodash";
 
 interface Props extends React.HTMLAttributes<HTMLElement> {
 	className?: string;
@@ -93,9 +94,31 @@ export default function Form(props: Props) {
 			return 0;
 		}
 	}
+	
+	function time2dhm(time : number) {
+		const d = floor(time / 86400);
+
+		const h = floor((time - d * 86400) / 3600);
+
+		const m = floor((time - (d * 86400 + h * 3600)) / 60);
+
+
+		return {
+			days: d,
+			hours: h,
+			minutes: m,
+		};
+	}
+	
+	const [durationValues, setDurationValues] = useState(time2dhm(form.formState.defaultValues?.duration ?? 0));
+
+	useEffect(() => {
+		const duration = durationValues.days * 24 * 60 * 60 + durationValues.hours * 60 * 60 + durationValues.minutes * 60;
+		form.setValue('duration', duration);
+	}, [durationValues]);
 
 	return (
-		<div className={`flex-col gap-5 ${props.className}`}>
+		<div className={`flex-col gap-5 {props.className}`}>
 			<div className="form-control w-full mt-4">
 				<InputLabel htmlFor="image">Foto Quest</InputLabel>
 				<Controller
@@ -318,6 +341,59 @@ export default function Form(props: Props) {
 					</div>
 				</div>
 			)}
+			<div className="form-control mt-4">
+				<div className="flex gap-3">
+					<label className="my-auto">
+						Durasi
+					</label>
+					<input
+						type="number"
+						className="w-16"
+						max={30}
+						value={durationValues.days}
+						onChange={(e) => {
+							setDurationValues({
+								...durationValues,
+								days: parseInt(e.target.value),
+							});
+						}}
+					/>
+					<label className="my-auto">
+						Hari
+					</label>
+					<input
+						type="number"
+						className="w-16"
+						max={23}
+						value={durationValues.hours}
+						onChange={(e) => {
+							setDurationValues({
+								...durationValues,
+								hours: parseInt(e.target.value),
+							});
+						}}
+					/>
+					<label className="my-auto">
+						Jam
+					</label>
+					<input
+						type="number"
+						className="w-16"
+						max={59}
+						value={durationValues.minutes}
+						onChange={(e) => {
+							setDurationValues({
+								...durationValues,
+								minutes: parseInt(e.target.value),
+							});
+						}}
+					/>
+					<label className="my-auto">
+						Menit
+					</label>
+				</div>
+
+			</div>
 			<div className="form-control w-full mt-4">
 				<TextField
 					{...form.register('expired_at')}
@@ -332,30 +408,32 @@ export default function Form(props: Props) {
 					error={form.formState.errors?.expired_at != null}
 					helperText={form.formState.errors.expired_at?.message}
 				/>
-			</div>
+				</div>
 			<FormControlLabel control={<Switch
 				{...form.register('isQuantity')}
 				defaultChecked={form.formState.defaultValues?.isQuantity}
 				name="isQuantity"
 				inputProps={{ 'aria-label': 'controlled' }}
 			/>} label="Jumlah Quest Berhasil Maksimal" />
-			{form.watch('isQuantity') && (
-				<div className="form-control w-full mt-4">
-					<TextField
-						{...form.register('quantity')}
-						label="Jumlah Quest Berhasil Maksimal"
-						type="number"
-						id="quantity"
-						name="quantity"
-						autoComplete="quantity"
-						style={{ width: '100%' }}
-						autoFocus
-						defaultValue={form.formState.defaultValues?.quantity}
-						error={form.formState.errors?.quantity != null}
-						helperText={form.formState.errors.quantity?.message}
-					/>
-				</div>
-			)}
+			{
+				form.watch('isQuantity') && (
+					<div className="form-control w-full mt-4">
+						<TextField
+							{...form.register('quantity')}
+							label="Jumlah Quest Berhasil Maksimal"
+							type="number"
+							id="quantity"
+							name="quantity"
+							autoComplete="quantity"
+							style={{ width: '100%' }}
+							autoFocus
+							defaultValue={form.formState.defaultValues?.quantity}
+							error={form.formState.errors?.quantity != null}
+							helperText={form.formState.errors.quantity?.message}
+						/>
+					</div>
+				)
+			}
 			<Modal
 				open={cropperModalOpen}
 				onClose={() => setCropperModalOpen(false)}
@@ -383,6 +461,6 @@ export default function Form(props: Props) {
 				</div>
 			</Modal>
 
-		</div>
+		</div >
 	)
 }

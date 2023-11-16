@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('submissions', function (Blueprint $table) {
             $table->id();
             $table->boolean('isValid')->default(false);
+            $table->string('description')->nullable();
+            $table->dateTime('expired_at');
             $table->string('status')->default('ON-PROGRESS');
             $table->double('latitude')->nullable();
             $table->double('longitude')->nullable();

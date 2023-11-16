@@ -55,6 +55,7 @@ class QuestController extends Controller
             'image.file' => 'required | image | mimes:jpeg,png,jpg,gif,svg',
             'title' => 'required',
             'description' => 'required',
+            'duration' => 'required|numeric',
             'quantity' => 'required_if:isQuantity,==,1|required',
             'point' => 'required',
             'location' => 'required',
@@ -62,29 +63,28 @@ class QuestController extends Controller
             'longitude' => 'required_if:isCoordinate,==,1|numeric',
             'expired_at' => 'required_if:isExpired,==,1required|date',
         ]);
-
         return DB::transaction(function () use ($request)
         {
-            $image = $request->file('image.file');
+            $image_file = $request->file('image.file');
 
             if ($request->isCanExpired == 0)
             {
                 $request->expired_at = null;
             }
 
-            $photo_file = DocumentFile::createFile(
+            $image = DocumentFile::createFile(
              'public',
              'quest',
-             $image,
+             $image_file,
             );
-
 
             Quest::create([
                 'category_id' => $request->category_id,
-                'photo_id' => $photo_file->id,
+                'image_id' => $image->id,
                 'title' => $request->title,
                 'description' => $request->description,
                 'quantity' => $request->quantity,
+                'duration' => $request->duration,
                 'point' => $request->point,
                 'location' => $request->location,
                 'latitude' => $request->latitude,
@@ -144,6 +144,7 @@ class QuestController extends Controller
             'image.file' => ' image | mimes:jpeg,png,jpg,gif,svg',
             'title' => 'required',
             'description' => 'required',
+            'duration' => 'required|numeric',
             'quantity' => 'required_if:isQuantity,==,1|required',
             'point' => 'required',
             'location' => 'required',
@@ -158,23 +159,24 @@ class QuestController extends Controller
 
             if ($image)
             {
-                $photo_file = $quest->image->replaceFile(
+                $image_file = $quest->image->replaceFile(
                     $image,
                 );
             }
             else
             {
-                $photo_file = $quest->image;
+                $image_file = $quest->image;
             }
 
 
             $quest->update([
                 'category_id' => $request->category_id,
-                'photo_id' => $photo_file->id,
+                'image_id' => $image_file->id,
                 'title' => $request->title,
                 'description' => $request->description,
                 'quantity' => $request->quantity,
                 'point' => $request->point,
+                'duration' => $request->duration,
                 'location' => $request->location,
                 'latitude' => $request->latitude,
                 'longitude' => $request->longitude,

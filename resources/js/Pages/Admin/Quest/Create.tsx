@@ -23,6 +23,7 @@ export default function Create(props: Props) {
 			isCoordinate: false,
 			quantity: 0,
 			point: 0,
+			duration: 0,
 		},
 	});
 

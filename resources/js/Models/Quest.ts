@@ -8,6 +8,7 @@ export interface BaseQuestModel {
     description: string;
     point: number;
     location: string;
+    duration: number;
     quantity?: number;
     latitude?: number | null;
     longitude?: number | null;
@@ -21,7 +22,7 @@ export interface BaseQuestModel {
 }
 
 export interface QuestModel extends BaseQuestModel {
-    image : DocumentFileModel;
+    image: DocumentFileModel;
 }
 
 export interface QuestCreateModel extends BaseQuestModel {
