@@ -1,20 +1,30 @@
-import { DocumentFileModel } from './FileModel';
+import { BaseDocumentFileModel, DocumentFileModel } from './FileModel';
 import { QuestCategoryModel } from './QuestCategory';
 
 
-export interface QuestModel {
+export interface BaseQuestModel {
     id: number;
     title: string;
     description: string;
     point: number;
     location: string;
-    latitude: number | null;
-    longitude: number | null;
+    quantity?: number;
+    latitude?: number | null;
+    longitude?: number | null;
+    expired_at: string;
     created_at: string;
     updated_at: string;
-    deleted_at: string;
-    quest_category_id: number;
-    quest_category: QuestCategoryModel;
+    category_id: number;
+    category: QuestCategoryModel;
     photo_id: number;
-    photo: DocumentFileModel;
+    photo: BaseDocumentFileModel;
+}
+
+export interface QuestModel extends BaseQuestModel {
+    photo : DocumentFileModel;
+}
+
+export interface QuestCreateModel extends BaseQuestModel {
+    isQuantity: boolean;
+    isCoordinate: boolean;
 }

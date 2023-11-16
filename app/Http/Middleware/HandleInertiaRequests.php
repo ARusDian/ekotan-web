@@ -40,6 +40,13 @@ class HandleInertiaRequests extends Middleware
     {
         return array_merge(parent::share($request), [
             //
+            'location.center.lat' => config('location.center.latitude'),
+            'location.center.lng' => config('location.center.longitude'),
+            'location.min.lat' => config('location.bound.min.latitude'),
+            'location.min.lng' => config('location.bound.min.longitude'),
+            'location.max.lat' => config('location.bound.max.latitude'),
+            'location.max.lng' => config('location.bound.max.longitude'),
+            'location.city' => config('location.city'),
             'import_failures' => fn() => $request
                 ->session()
                 ->get('import_failures', []),

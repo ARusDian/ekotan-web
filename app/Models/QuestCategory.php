@@ -20,7 +20,7 @@ class QuestCategory extends Model
 
     public function quests()
     {
-        return $this->hasMany(Quest::class);
+        return $this->hasMany(Quest::class, 'category_id');
     }
 
     public function scopeWhereColumns($query, $filters)

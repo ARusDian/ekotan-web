@@ -38,7 +38,6 @@ Route::middleware([
     Route::middleware(["role:super-admin|admin"])->group(function () {
         Route::get("/dashboard", [DashboardController::class, "index"])->name("dashboard");
         Route::prefix("admin")->group(function () {
-            Route::get("/guide-book", [DashboardController::class, "guide"])->name("guide");
             Route::middleware(["role:super-admin"])->group(function () {
                 Route::resource("/user", UserController::class);
                 Route::post('/user/{user}/restore', [UserController::class, "restore"])->name('user.restore');
