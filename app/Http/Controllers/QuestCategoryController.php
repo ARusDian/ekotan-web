@@ -47,7 +47,9 @@ class QuestCategoryController extends Controller
             'description' => $request->description,
         ]);
 
-        return redirect()->route('quest-category.index');
+        return redirect()->route('quest-category.index')->banner(
+            "Quest Category created successfully."
+        );
     }
 
     /**
@@ -85,7 +87,9 @@ class QuestCategoryController extends Controller
             'description' => $request->description,
         ]);
 
-        return redirect()->route('quest-category.index');
+        return redirect()->route('quest-category.index')->banner(
+            "Quest Category updated successfully."
+        );
     }
 
     /**
@@ -95,6 +99,8 @@ class QuestCategoryController extends Controller
     {
         //
         $questCategory->delete();
-        return redirect()->route('quest-category.index');
+        return redirect()->route('quest-category.index')->banner(
+            "Quest Category deleted successfully."
+        );
     }
 }

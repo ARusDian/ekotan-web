@@ -91,7 +91,9 @@ class QuestController extends Controller
                 'longitude' => $request->longitude,
                 'expired_at' => $request->expired_at,
             ]);
-            return redirect()->route('quest.index');
+            return redirect()->route('quest.index')->banner(
+                'Quest created successfully'
+            );
 
         });
 
@@ -178,7 +180,9 @@ class QuestController extends Controller
                 'longitude' => $request->longitude,
                 'expired_at' => $request->expired_at,
             ]);
-            return redirect()->route('quest.index');
+            return redirect()->route('quest.index')->banner(
+                'Quest updated successfully'
+            );
 
         });
     }
@@ -194,7 +198,9 @@ class QuestController extends Controller
             $quest->delete();
             $quest->image->delete();
             $quest->image->deleteFile();
-            return redirect()->route('quest.index');
+            return redirect()->route('quest.index')->banner(
+                'Quest deleted successfully'
+            );
         });
     }
 }
