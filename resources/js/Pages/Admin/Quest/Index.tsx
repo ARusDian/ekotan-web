@@ -58,7 +58,7 @@ export default function Index(props: Props) {
         () => [
             {
                 id: 'title',
-                header: 'nama Quest',
+                header: 'Nama Quest',
                 accessorFn: row => row.title,
                 Cell: ({ renderedCellValue, row }) => (
                     <div className="flex gap-3">
