@@ -8,4 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class PointTransaction extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'user_id',
+        'point',
+        'description',
+        'is_addition',
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

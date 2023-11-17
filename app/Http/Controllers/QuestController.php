@@ -61,16 +61,11 @@ class QuestController extends Controller
             'location' => 'required',
             'latitude' => 'required_if:isCoordinate,==,1|numeric',
             'longitude' => 'required_if:isCoordinate,==,1|numeric',
-            'expired_at' => 'required_if:isExpired,==,1required|date',
+            'expired_at' => 'date',
         ]);
         return DB::transaction(function () use ($request)
         {
             $image_file = $request->file('image.file');
-
-            if ($request->isCanExpired == 0)
-            {
-                $request->expired_at = null;
-            }
 
             $image = DocumentFile::createFile(
              'public',

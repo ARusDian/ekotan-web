@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('point_transactions', function (Blueprint $table) {
             $table->id();
-            $table->double('amount');
+            $table->double('point');
             $table->text('description');
             $table->boolean('is_addition');
+            $table->foreignId('user_id')->constrained('users');
             $table->timestamps();
         });
     }

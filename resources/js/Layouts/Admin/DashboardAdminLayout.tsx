@@ -31,6 +31,7 @@ import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck';
 import RedeemIcon from '@mui/icons-material/Redeem';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
+import CollectionsBookmarkIcon from '@mui/icons-material/CollectionsBookmark';
 
 interface Props {
   title: string;
@@ -218,6 +219,17 @@ export default function DashboardAdminLayout({
               <NewspaperIcon fontSize="large" />
             </span>
             Artikel
+          </ResponsiveNavLink>
+        </li>
+        <li>
+          <ResponsiveNavLink
+            href={route('submission.index')}
+            active={route().current('submission.index')}
+          >
+            <span className={'mr-4'}>
+              <CollectionsBookmarkIcon fontSize="large" />
+            </span>
+            Pengumpulan
           </ResponsiveNavLink>
         </li>
         {user.roles.some(role => role.name === 'super-admin') && (

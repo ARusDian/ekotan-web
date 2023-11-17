@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('submissions', function (Blueprint $table) {
             $table->id();
-            $table->boolean('isValid')->default(false);
+            $table->boolean('is_accepted')->default(false);
             $table->string('description')->nullable();
             $table->dateTime('expired_at');
-            $table->string('status')->default('ON-PROGRESS');
+            $table->string('status');
             $table->double('latitude')->nullable();
             $table->double('longitude')->nullable();
             $table->foreignId('quest_id')->constrained('quests');

@@ -8,6 +8,7 @@ use App\Http\Controllers\DocumentFileController;
 use App\Http\Controllers\PrizeController;
 use App\Http\Controllers\QuestCategoryController;
 use App\Http\Controllers\QuestController;
+use App\Http\Controllers\SubmissionController;
 use App\Http\Controllers\UserActivityController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -58,6 +59,9 @@ Route::middleware([
             });
             Route::resource("quest-category", QuestCategoryController::class);
             Route::resource("quest", QuestController::class);
+            Route::resource("submission", SubmissionController::class);
+            Route::post("submission/{submission}/accept", [SubmissionController::class, "accept"])->name("submission.accept");
+            Route::post("submission/{submission}/reject", [SubmissionController::class, "reject"])->name("submission.reject");
 
             Route::resource("article", ArticleController::class);
             Route::resource("prize", PrizeController::class);

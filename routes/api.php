@@ -4,6 +4,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\PrizeController;
 use App\Http\Controllers\QuestController;
 use App\Http\Controllers\QuestCategoryController;
+use App\Http\Controllers\SubmissionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -36,5 +37,11 @@ Route::middleware('auth:sanctum')->group(function ()
     Route::get('quest/{quest}', [QuestController::class, 'showApi'])->name('api.quest.show');
     Route::get('quest-category', [QuestCategoryController::class, 'index'])->name('api.quest-category.index');
     Route::get('quest-category/{questCategory}', [QuestCategoryController::class, 'show'])->name('api.quest-category.show');
+
+    Route::get('user-submission', [SubmissionController::class, 'userSubmissionIndex'])->name('api.submission.index');
+    Route::get('user-submission/{submission}', [SubmissionController::class, 'userSubmissionShow'])->name('api.submission.show');
+    
+    Route::post('accept-submission/{quest}', [SubmissionController::class, 'acceptSubmission'])->name('api.submission.accept');
+    Route::post('submit-submission/{submission}', [SubmissionController::class, 'submitSubmission'])->name('api.submission.submit');
 });
 
