@@ -94,8 +94,8 @@ export default function Form(props: Props) {
 			return 0;
 		}
 	}
-	
-	function time2dhm(time : number) {
+
+	function time2dhm(time: number) {
 		const d = floor(time / 86400);
 
 		const h = floor((time - d * 86400) / 3600);
@@ -109,7 +109,7 @@ export default function Form(props: Props) {
 			minutes: m,
 		};
 	}
-	
+
 	const [durationValues, setDurationValues] = useState(time2dhm(form.formState.defaultValues?.duration ?? 0));
 
 	useEffect(() => {
@@ -258,6 +258,76 @@ export default function Form(props: Props) {
 					helperText={form.formState.errors.location?.message}
 				/>
 			</div>
+			<div className="form-control w-full mt-4">
+				<TextField
+					{...form.register('expired_at')}
+					label="Masa Akhir Berlaku"
+					type="datetime-local"
+					id="expired_at"
+					name="expired_at"
+					autoComplete="expired_at"
+					style={{ width: '100%' }}
+					autoFocus
+					defaultValue={form.formState.defaultValues?.expired_at}
+					error={form.formState.errors?.expired_at != null}
+					helperText={form.formState.errors.expired_at?.message}
+				/>
+			</div>
+			<div className="form-control mt-4">
+				<div className="flex gap-3">
+					<label className="my-auto">
+						Durasi
+					</label>
+					<input
+						type="number"
+						className="w-16"
+						max={30}
+						min={0}
+						value={durationValues.days}
+						onChange={(e) => {
+							setDurationValues({
+								...durationValues,
+								days: parseInt(e.target.value),
+							});
+						}}
+					/>
+					<label className="my-auto">
+						Hari
+					</label>
+					<input
+						type="number"
+						className="w-16"
+						max={23}
+						min={0}
+						value={durationValues.hours}
+						onChange={(e) => {
+							setDurationValues({
+								...durationValues,
+								hours: parseInt(e.target.value),
+							});
+						}}
+					/>
+					<label className="my-auto">
+						Jam
+					</label>
+					<input
+						type="number"
+						className="w-16"
+						max={59}
+						min={0}
+						value={durationValues.minutes}
+						onChange={(e) => {
+							setDurationValues({
+								...durationValues,
+								minutes: parseInt(e.target.value),
+							});
+						}}
+					/>
+					<label className="my-auto">
+						Menit
+					</label>
+				</div>
+			</div>
 			<FormControlLabel control={<Switch
 				{...form.register('isCoordinate')}
 				defaultChecked={form.formState.defaultValues?.isCoordinate}
@@ -341,74 +411,6 @@ export default function Form(props: Props) {
 					</div>
 				</div>
 			)}
-			<div className="form-control mt-4">
-				<div className="flex gap-3">
-					<label className="my-auto">
-						Durasi
-					</label>
-					<input
-						type="number"
-						className="w-16"
-						max={30}
-						value={durationValues.days}
-						onChange={(e) => {
-							setDurationValues({
-								...durationValues,
-								days: parseInt(e.target.value),
-							});
-						}}
-					/>
-					<label className="my-auto">
-						Hari
-					</label>
-					<input
-						type="number"
-						className="w-16"
-						max={23}
-						value={durationValues.hours}
-						onChange={(e) => {
-							setDurationValues({
-								...durationValues,
-								hours: parseInt(e.target.value),
-							});
-						}}
-					/>
-					<label className="my-auto">
-						Jam
-					</label>
-					<input
-						type="number"
-						className="w-16"
-						max={59}
-						value={durationValues.minutes}
-						onChange={(e) => {
-							setDurationValues({
-								...durationValues,
-								minutes: parseInt(e.target.value),
-							});
-						}}
-					/>
-					<label className="my-auto">
-						Menit
-					</label>
-				</div>
-
-			</div>
-			<div className="form-control w-full mt-4">
-				<TextField
-					{...form.register('expired_at')}
-					label="Masa Akhir Berlaku"
-					type="datetime-local"
-					id="expired_at"
-					name="expired_at"
-					autoComplete="expired_at"
-					style={{ width: '100%' }}
-					autoFocus
-					defaultValue={form.formState.defaultValues?.expired_at}
-					error={form.formState.errors?.expired_at != null}
-					helperText={form.formState.errors.expired_at?.message}
-				/>
-				</div>
 			<FormControlLabel control={<Switch
 				{...form.register('isQuantity')}
 				defaultChecked={form.formState.defaultValues?.isQuantity}
